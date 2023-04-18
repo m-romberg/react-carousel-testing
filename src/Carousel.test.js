@@ -3,7 +3,6 @@ import Carousel from "./Carousel";
 import TEST_IMAGES from "./_testCommon.js";
 
 it("renders without crashing", function () {
-  // this is a low-value test, but better than nothing
   render(
     <Carousel
       photos={TEST_IMAGES}
@@ -87,10 +86,9 @@ it("hides arrowa when exhausted", function () {
     container.querySelector('.bi-arrow-left-circle')
   ).not.toBeInTheDocument();
 
-  //go to end of carousel
   const rightArrow = container.querySelector(".bi-arrow-right-circle");
-
-  for (let i = 0; i > TEST_IMAGES.length -1; i++){
+  //go to end of carousel
+  for (let i = 0; i < (TEST_IMAGES.length - 1); i++) {
     fireEvent.click(rightArrow);
   }
 

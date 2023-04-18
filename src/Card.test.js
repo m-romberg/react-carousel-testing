@@ -3,12 +3,11 @@ import { render } from "@testing-library/react";
 import Card from "./Card";
 
 it("renders without crashing", function () {
-  // this is a low-value test, but better than nothing
   render(<Card caption="caption" src="img.png" currNum={1} totalNum={3} />);
 });
 // end
 
-it("has the correct alt text & src", function () {
+it("has the correct caption & src", function () {
   const { container, debug } = render(
     <Card caption="caption" src="img.png" currNum={1} totalNum={3} />
   );
@@ -25,6 +24,6 @@ it("has the correct alt text & src", function () {
 it("matches snapshot", function () {
   const { container } = render(
     <Card caption="caption" src="img.png" currNum={1} totalNum={3} />
-    );
+  );
   expect(container).toMatchSnapshot();
 });
