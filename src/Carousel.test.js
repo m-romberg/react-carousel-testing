@@ -6,13 +6,13 @@ it("renders without crashing", function () {
   // this is a low-value test, but better than nothing
   render(
     <Carousel
-    photos={TEST_IMAGES}
-    title="images for testing"
+      photos={TEST_IMAGES}
+      title="images for testing"
     />
   );
 });
 
-it("works when you click on the right arrow", function() {
+it("works when you click on the right arrow", function () {
   const { container } = render(
     <Carousel
       photos={TEST_IMAGES}
@@ -40,7 +40,7 @@ it("works when you click on the right arrow", function() {
   ).toBeInTheDocument();
 });
 
-it("works when you click on the left arrow", function() {
+it("works when you click on the left arrow", function () {
   const { container } = render(
     <Carousel
       photos={TEST_IMAGES}
@@ -72,11 +72,45 @@ it("works when you click on the left arrow", function() {
   ).not.toBeInTheDocument();
 });
 
+it("hides arrowa when exhausted", function () {
+  const { container } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
+    />
+  );
+  //checks that only foward arrow shows at beginning of img carousel
+  expect(
+    container.querySelector('.bi-arrow-right-circle')
+  ).toBeInTheDocument();
+  expect(
+    container.querySelector('.bi-arrow-left-circle')
+  ).not.toBeInTheDocument();
+
+  //go to end of carousel
+  const rightArrow = container.querySelector(".bi-arrow-right-circle");
+
+  for (let i = 0; i > TEST_IMAGES.length -1; i++){
+    fireEvent.click(rightArrow);
+  }
+
+  //checks that only back arrow shows at end of img carousel
+  expect(
+    container.querySelector('.bi-arrow-right-circle')
+  ).not.toBeInTheDocument();
+  expect(
+    container.querySelector('.bi-arrow-left-circle')
+  ).toBeInTheDocument();
+
+});
+
+
+
 it("matches snapshot", function () {
   const { container } = render(
     <Carousel
-    photos={TEST_IMAGES}
-    title="images for testing"
+      photos={TEST_IMAGES}
+      title="images for testing"
     />
   );
   expect(container).toMatchSnapshot();
