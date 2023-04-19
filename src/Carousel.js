@@ -30,26 +30,30 @@ function Carousel({ photos, title }) {
   function goBackward() {
     setCurrCardIdx(currCardIdx - 1);
   }
-
   return (
     <div className="Carousel">
       <h1>{title}</h1>
       <div className="Carousel-main">
-        {currCardIdx !== 0 && <i
-          className="bi bi-arrow-left-circle"
+        <i
+          className={
+            currCardIdx !== 0
+              ? "bi bi-arrow-left-circle"
+              : "bi bi-arrow-left-circle hidden"}
           onClick={goBackward}
-        />}
-
+        />
         <Card
           caption={currCard.caption}
           src={currCard.src}
           currNum={currCardIdx + 1}
           totalNum={total}
         />
-        {currCardIdx < (total - 1) && <i
-          className="bi bi-arrow-right-circle"
+        <i
+          className={
+            currCardIdx < (total - 1)
+              ? "bi bi-arrow-right-circle"
+              : "bi bi-arrow-right-circle hidden"}
           onClick={goForward}
-        />}
+        />
       </div>
     </div>
   );

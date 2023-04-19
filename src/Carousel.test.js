@@ -58,6 +58,14 @@ it("works when you click on the left arrow", function () {
   const rightArrow = container.querySelector(".bi-arrow-right-circle");
   fireEvent.click(rightArrow);
 
+  //check we actually moved forward
+  expect(
+    container.querySelector('img[alt="testing image 1"]')
+  ).not.toBeInTheDocument();
+  expect(
+    container.querySelector('img[alt="testing image 2"]')
+  ).toBeInTheDocument();
+
   //move back
   const leftArrow = container.querySelector(".bi-arrow-left-circle");
   fireEvent.click(leftArrow);
@@ -71,7 +79,7 @@ it("works when you click on the left arrow", function () {
   ).not.toBeInTheDocument();
 });
 
-it("hides arrowa when exhausted", function () {
+it("hides arrows when exhausted", function () {
   const { container } = render(
     <Carousel
       photos={TEST_IMAGES}
@@ -81,10 +89,10 @@ it("hides arrowa when exhausted", function () {
   //checks that only foward arrow shows at beginning of img carousel
   expect(
     container.querySelector('.bi-arrow-right-circle')
-  ).toBeInTheDocument();
+  ).not.toHaveClass("hidden");
   expect(
     container.querySelector('.bi-arrow-left-circle')
-  ).not.toBeInTheDocument();
+  ).toHaveClass("hidden");
 
   const rightArrow = container.querySelector(".bi-arrow-right-circle");
   //go to end of carousel
@@ -95,14 +103,12 @@ it("hides arrowa when exhausted", function () {
   //checks that only back arrow shows at end of img carousel
   expect(
     container.querySelector('.bi-arrow-right-circle')
-  ).not.toBeInTheDocument();
+  ).toHaveClass("hidden");
   expect(
     container.querySelector('.bi-arrow-left-circle')
-  ).toBeInTheDocument();
+  ).not.toHaveClass("hidden");
 
 });
-
-
 
 it("matches snapshot", function () {
   const { container } = render(
